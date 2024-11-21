@@ -11,8 +11,12 @@ from matplotlib import pyplot
 u_e = 2
 
 # 10 inital values of rho to calculate solutions for (given)
-rho_c = np.linspace(1/10,2.5*(10^6),10)
-a=1
 
+first_rho = 1/10.
+last_rho = 
+rho_c = np.linspace(1/10,2.5*(10^6),10)
+print(rho_c)
+a=1
 def diffEQNs():
+    
     return a
