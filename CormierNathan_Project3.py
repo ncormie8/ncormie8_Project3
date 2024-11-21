@@ -1,6 +1,6 @@
 import numpy as np
 from scipy import integrate
-from matplotlib import pyplot
+import matplotlib.pyplot as plt
 
 # Question 1
 # solve eqs 8 and 9
@@ -8,15 +8,15 @@ from matplotlib import pyplot
 # intergrate from 0 (or as close as possible) to rs such that rho(rs) = 0
 
 # given values
-u_e = 2
+u_e = 2.
 
 # 10 inital values of rho to calculate solutions for (given)
+rho_c = np.linspace(1/10.,2.5*(10**6),10)
 
-first_rho = 1/10.
-last_rho = 2.5*(10**6)
-rho_c = np.linspace(first_rho,last_rho,10)
-print(rho_c)
-a=1
-def diffEQNs():
-    
-    return a
+# function which returns equations 8 and 9 to be solved with solve_ivp
+def diffEQNs(r, f, gamma, ue):
+    ''''''
+    m, rho = f
+    drho_dr = (-m*rho)/(gamma*(r**2))
+    dm_dr = (r**2)*rho 
+    return drho_dr , dm_dr
