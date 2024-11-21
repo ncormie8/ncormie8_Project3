@@ -19,11 +19,7 @@ initial_m = 0.
 initial_r = 1e-10
 
 def gammaX(rho):
-   u_e = 2.
-   p0 = (9.47e5)*(u_e)
-   rho_unitless = (np.abs(rho)/p0)**(1.0/3.0)
-
-   gamma = (rho_unitless**2)/(3*(1+rho_unitless**2)**(0.5))
+   gamma = (rho**2)/(3*(1+rho**2)**(0.5))
    return gamma
 
 # function which returns equations 8 and 9 to be solved with solve_ivp
@@ -41,14 +37,18 @@ def diffEQNs(r, f):
    gam = gammaX(rho)
 
    # defining each ode
-   drho_dr = (-m*rho)/(gam*(r**2))
    dm_dr = (r**2)*rho
+   drho_dr = (-m*rho)/(gam*(r**2))
 
    # returning eqns as appended array for easier operation
    out = np.append(dm_dr,drho_dr)
    return out
 
 f0 = [initial_m,rho_c[0]]            # m(r=0) = 0 | rho(r=0) = rho_c 
-slns = np.zeros(np.size(rho_c))
+
 soln = integrate.solve_ivp(diffEQNs, (initial_r,100), f0)
-print(soln)
+
+plt.plot(soln.t, soln.y[0,:], 'r', soln.t, soln.y[1,:], 'g')
+plt.xlabel('Radius r')
+plt.ylabel('Red: dmdr soln , Green: drho/dr soln')
+plt.show()
