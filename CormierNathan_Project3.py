@@ -38,10 +38,14 @@ def diffEQNs(r, f):
    drho_dr = (-m*rho)/(gamma*(r**2))
    dm_dr = (r**2)*rho
 
-   return drho_dr, dm_dr
+   # returning eqns as appended array for easier operation
+   out = np.append(dm_dr,drho_dr)
+   return out
 
+f0 = [initial_m,rho_c[5]]
+print(diffEQNs(r=initial_r,f=f0))
 
-   
+soln = integrate.solve_ivp(diffEQNs,(initial_r,100),f0)
 # sol = integrate.solve_ivp(diffEQNs,(0.0001,10),(rho_c[0],initial_m))
 
 # # constant
