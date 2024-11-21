@@ -13,8 +13,8 @@ u_e = 2
 # 10 inital values of rho to calculate solutions for (given)
 
 first_rho = 1/10.
-last_rho = 
-rho_c = np.linspace(1/10,2.5*(10^6),10)
+last_rho = 2.5*(10**6)
+rho_c = np.linspace(first_rho,last_rho,10)
 print(rho_c)
 a=1
 def diffEQNs():
