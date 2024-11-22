@@ -48,9 +48,8 @@ t_eval = np.linspace(initial_radius,100,200)
 for i in range(np.size(initial_density)):
    # setting the initial condition
    f0 = [0., initial_density[i]]
-   soln = integrate.solve_ivp(odes,[initial_radius,100],f0,events=zerodensity)
-   print(soln.y_events[0,:])
-   print(soln.t_events[0,:])
+   soln = integrate.solve_ivp(odes,[initial_radius,10],f0,events=zerodensity,rtol=1e-8,atol=1e-10)
+   print(soln)
    # solved_radii[i] = soln.t_events[-1]
    # solved_masses[i] = soln.y_events[-1]
    
