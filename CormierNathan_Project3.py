@@ -42,11 +42,17 @@ zerodensity.direction = -1
 solved_masses = np.zeros(np.size(initial_density))
 solved_radii = np.zeros(np.size(initial_density))
 
+# setting evaluation time for integration
+t_eval = np.linspace(initial_radius,100,200)
+
 for i in range(np.size(initial_density)):
    # setting the initial condition
    f0 = [0., initial_density[i]]
    soln = integrate.solve_ivp(odes,[initial_radius,100],f0,events=zerodensity)
-   print(soln.t_events)
+   print(soln.y_events[0,:])
+   print(soln.t_events[0,:])
+   # solved_radii[i] = soln.t_events[-1]
+   # solved_masses[i] = soln.y_events[-1]
    
 
 
