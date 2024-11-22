@@ -8,9 +8,9 @@ import time
 # BC: m(r=0) = 0 , rho(r=0) = rho_c
 # intergrate from 0 (or as close as possible) to rs such that rho(rs) = 0
 
-M0 = 5.67e33/(2.**2)  # [g]
-R0 = 7.72e8/2.    # [cm]
-p0 = 9.74e5*2.  # [g/cm^3]
+# M0 = 5.67e33/(2.**2)  # [g]
+# R0 = 7.72e8/2.    # [cm]
+# p0 = 9.74e5*2.  # [g/cm^3]
 
 # 10 inital values of rho to calculate solutions for (given)
 initial_density = np.linspace(1/10.,2.5*(10**6),10)  # already made unitless (p/p0)
@@ -31,11 +31,19 @@ def odes(r, f, mew_e):
    
    return [dm_dr,drho_dr]
 
+# setting event condition to stop integration when density is zero
+def zerodensity(r, f):
+   return f[1]
+
+zerodensity.terminal = True
+zerodensity.direction = -1
+
+
+
 soln = integrate.solve_ivp(odes,[initial_radius,100],[0.,initial_density[0]],args=(2.0,))
 print('radius [cm] = '+str(soln.t[-1]))
 print('mass [g] = '+str(soln.y[0,-1]))
 print('end density [cm] = '+str(soln.y[1,-1]))
-
 
 plt.plot(soln.t, soln.y[0,:], 'r', soln.t, soln.y[1,:], 'g')
 plt.xlabel('Radius r')
