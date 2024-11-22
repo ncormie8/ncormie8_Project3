@@ -9,10 +9,24 @@ import time
 # intergrate from 0 (or as close as possible) to rs such that rho(rs) = 0
 
 # 10 inital values of rho to calculate solutions for (given)
-rho_c = np.linspace(1/10.,2.5*(10**6),10)  # already made unitless (p/p0)
-initial_m = 0.
-initial_r = 1e-10
+initial_density = np.linspace(1/10.,2.5*(10**6),10)  # already made unitless (p/p0)
+initial_mass = 0.
+initial_radius = 1e-10
 
-# function which returns equations 8 and 9 to be solved with solve_ivp
-def diffEQNs(r, f):
-   
+# beta function definiton
+def odes(r, f, gamma, mew_e):
+   # constants
+   M0 = 5.67e33/(mew_e**2)  # [g]
+   R0 = 7.72e8/mew_e    # [cm]
+   p0 = 9.74e5*mew_e  # [g/cm^3]
+
+   mass, density = f   # setting mass and density as functions odes() in terms of r
+
+   # definining differential equations  
+   drho_dr = -(mass/M0)*(density/p0)/gamma*((r/R0)**2)
+   dm_dr = ((r/R0)**2)*(density/p0)
+
+   return [dm_dr,drho_dr]
+
+
+
