@@ -30,8 +30,6 @@ def odes(r, f):
       dm_dr = (r**2)*(density)
    
       return [dm_dr,drho_dr]
-   else:
-      print('negative density')
 
 # setting event condition to stop integration when density is zero
 def zerodensity(r, f):
@@ -52,7 +50,6 @@ for i in range(np.size(initial_density)):
    
    # setting the initial condition
    f0 = [0., initial_density[i]]
-   print('initial density',i+1,' = ', f0[1])
    
    # solving eqns 8 and 9 for the given initial condition
    soln = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
@@ -73,8 +70,20 @@ M0 = 5.67e33/(ue**2)  # [g]
 R0 = 7.72e8/(ue)    # [cm]
 p0 = 9.74e5*(ue)  # [g/cm^3]
 
-# converting the dimensionless solutions to units cms and grams respectively
-radius_cms = np.multiply(R0, solved_radii)
-mass_grams = np.multiply(M0, solved_masses)
+# similar loop as in question 2
+for j in range(np.size(initial_density)):
+   
+   # setting the initial condition for the current loop iteration
+   f0 = [0., initial_density[j]]
+   soln = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
+   
+   # extracting the values of mass and radius, and giving them units
+   plotting_mass = np.multiply(M0,soln.y[0,:])
+   plotting_radius = np.multiply(R0,soln.t[:])
 
-
+   # plotting mass on x, radius on y
+   plt.plot(plotting_mass,plotting_radius,'-')
+   plt.xlabel('Mass [g]')
+   plt.ylabel('Stellar radius [cm]')
+   plt.title('White dwarf radius in terms of mass for initial density')
+   plt.show()
