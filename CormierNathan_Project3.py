@@ -85,5 +85,12 @@ for j in range(np.size(initial_density)):
    plt.plot(plotting_mass,plotting_radius,'-')
    plt.xlabel('Mass [g]')
    plt.ylabel('Stellar radius [cm]')
-   plt.title('White dwarf radius in terms of mass for initial density')
+   plt.title('White dwarf radius in terms of mass for initial density ~'+str(np.round(initial_density[j],2)))
    plt.show()
+
+# My result for the Chandrasekhar limit was estimated from the plots to be
+# approimately 
+
+MCH = 5.836/(ue**2)
+print(MCH)
+print(soln.y[0,-1])
