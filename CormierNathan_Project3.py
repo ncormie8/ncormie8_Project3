@@ -34,6 +34,11 @@ def odes(r, f):
       return [dm_dr,drho_dr]
 
 # setting event condition to stop integration when density is zero
+def zerodensity(r, f):
+   return  f[1] 
+
+zerodensity.terminal = True
+zerodensity.direction = -1  
 
 
 # initializing an empty arrays which can store the solution values mass and radius
@@ -44,15 +49,15 @@ solved_radii = np.zeros(np.size(initial_density))
 t_eval = np.linspace(initial_radius,100,10000000)
 
 for i in range(np.size(initial_density)):
-   def zerodensity(r, f):
-      return f[1]
    
-   zerodensity.terminal = True
-   zerodensity.direction = -1  
-
    # setting the initial condition
    f0 = [0., initial_density[i]]
+   print('initial density',i+1,' = ', f0[1])
+   
    soln = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
    print('radius ',i+1,' :',soln.t[-1])
    print('mass ',i+1,' :',soln.y[0,-1])
-   time.sleep(1)
+
+
+# Question 2
+
