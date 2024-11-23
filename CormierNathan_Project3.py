@@ -8,9 +8,7 @@ import time
 # BC: m(r=0) = 0 , rho(r=0) = rho_c
 # intergrate from 0 (or as close as possible) to rs such that rho(rs) = 0
 
-# M0 = 5.67e33/(2.**2)  # [g]
-# R0 = 7.72e8/2.    # [cm]
-# p0 = 9.74e5*2.  # [g/cm^3]
+ue = 2.
 
 # 10 inital values of rho to calculate solutions for (given)
 initial_density = np.linspace(1/10.,2.5*(10**6),10)  # already made unitless (p/p0)
@@ -67,4 +65,13 @@ for i in range(np.size(initial_density)):
 # Transform your results from the ODE solution into physical (not dimensionless)
 # units and plot R as a function of M (R on y, M on x). Can you estimate the Chandraskhar limit
 # from your plot? How does it compoare to Mch = 5.836/(ue^2)?
+
+# relative mass, radius, and density for converting to real units
+M0 = 5.67e33/(ue**2)  # [g]
+R0 = 7.72e8/(ue)    # [cm]
+p0 = 9.74e5*(ue)  # [g/cm^3]
+
+# converting the dimensionless solutions to units cms and grams respectively
+radius_cms = np.multiply(R0, solved_radii)
+mass_grams = np.multiply(M0, solved_masses)
 
