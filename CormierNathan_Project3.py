@@ -89,8 +89,7 @@ for j in range(np.size(initial_density)):
    plt.show()
 
 # My result for the Chandrasekhar limit was estimated from the plots to be
-# approimately 
-
-MCH = 5.836/(ue**2)
-print(MCH)
-print(soln.y[0,-1])
+# 2.86e33. This is roughly 2 times as large compared to the result obtained by
+# Kippenhahn & Weigert (1990) of 5.836/ue^2 ~= 1.459. This is likely due to
+# the use of poor starting values for the central density of white dwarves
+# used in the integration solution.
