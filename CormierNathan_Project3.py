@@ -54,10 +54,17 @@ for i in range(np.size(initial_density)):
    f0 = [0., initial_density[i]]
    print('initial density',i+1,' = ', f0[1])
    
+   # solving eqns 8 and 9 for the given initial condition
    soln = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
-   print('radius ',i+1,' :',soln.t[-1])
-   print('mass ',i+1,' :',soln.y[0,-1])
+   
+   # saving the dimensionless values of mass and radius to arrays
+   solved_radii[i] = soln.t[-1]
+   solved_masses[i] = soln.y[0,-1]
 
 
 # Question 2
+
+# Transform your results from the ODE solution into physical (not dimensionless)
+# units and plot R as a function of M (R on y, M on x). Can you estimate the Chandraskhar limit
+# from your plot? How does it compoare to Mch = 5.836/(ue^2)?
 
