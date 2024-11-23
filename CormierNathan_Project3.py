@@ -30,6 +30,8 @@ def odes(r, f):
       dm_dr = (r**2)*(density)
    
       return [dm_dr,drho_dr]
+   else:
+      print('negative density')
 
 # setting event condition to stop integration when density is zero
 def zerodensity(r, f):
@@ -74,4 +76,5 @@ p0 = 9.74e5*(ue)  # [g/cm^3]
 # converting the dimensionless solutions to units cms and grams respectively
 radius_cms = np.multiply(R0, solved_radii)
 mass_grams = np.multiply(M0, solved_masses)
+
 
