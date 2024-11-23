@@ -38,7 +38,6 @@ def zerodensity(r, f):
 zerodensity.terminal = True
 zerodensity.direction = -1  
 
-
 # initializing an empty arrays which can store the solution values mass and radius
 solved_masses = np.zeros(np.size(initial_density))
 solved_radii = np.zeros(np.size(initial_density))
@@ -82,14 +81,45 @@ for j in range(np.size(initial_density)):
    plotting_radius = np.multiply(R0,soln.t[:])
 
    # plotting mass on x, radius on y
-   plt.plot(plotting_mass,plotting_radius,'-')
-   plt.xlabel('Mass [g]')
-   plt.ylabel('Stellar radius [cm]')
-   plt.title('White dwarf radius in terms of mass for initial density ~'+str(np.round(initial_density[j],2)))
-   plt.show()
+   # plt.plot(plotting_mass,plotting_radius,'-')
+   # plt.xlabel('Mass [g]')
+   # plt.ylabel('Stellar radius [cm]')
+   # plt.title('White dwarf radius in terms of mass for initial density ~'+str(np.round(initial_density[j],2)))
+   # plt.show()
 
 # My result for the Chandrasekhar limit was estimated from the plots to be
 # 2.86e33. This is roughly 2 times as large compared to the result obtained by
 # Kippenhahn & Weigert (1990) of 5.836/ue^2 ~= 1.459. This is likely due to
 # the use of poor starting values for the central density of white dwarves
 # used in the integration solution.
+
+# Question 3
+
+# Pick 3 values of initial central density and run solve_ivp again, choosing a
+# different integration method from the one used in part one (RK45). How different
+# are you results?
+
+# initializing an empty arrays which can store the 
+# solution values mass and radius for quesiton 3
+solved_masses3 = np.zeros(np.size(initial_density))
+solved_radii3 = np.zeros(np.size(initial_density))
+
+# using the first 3 values of initial central density
+initial_densities3 = initial_density[0:3]
+
+for k in range(np.size(initial_densities3)):
+   
+   # setting the initial condition
+   f0 = [0., initial_densities3[k]]
+   
+   # solving eqns 8 and 9 for the given initial condition, now using BDF as the integration method
+   soln = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10, method='RK23')
+   
+   # saving the dimensionless values of mass and radius to arrays
+   solved_radii3[k] = soln.t[-1]
+   solved_masses3[k] = soln.y[0,-1]
+
+   # comparison to be printed to the terminal
+   print('RK45 output radius = '+str(solved_radii[k])+' | RK23 output radius = '+str(solved_radii3[k]))
+   print('RK45 output mass = '+str(solved_masses[k])+' | RK23 output mass = '+str(solved_masses3[k])+'\n')
+
