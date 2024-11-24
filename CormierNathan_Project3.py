@@ -60,6 +60,9 @@ for i in range(np.size(initial_density)):
    # saving the dimensionless values of mass and radius to arrays
    solved_radii[i] = soln.t[-1]
    solved_masses[i] = soln.y[0,-1]
+   print('For initial central density '+str(initial_density[i]))
+   print('Calculated radius = '+str(solved_radii[i]))
+   print('Calculated mass = '+str(solved_masses[i])+'\n')
 
 
 # Question 2
