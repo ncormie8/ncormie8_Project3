@@ -91,6 +91,7 @@ for j in range(np.size(initial_density)):
    plt.title('White dwarf radius in terms of mass for initial density ~'+str(np.round(initial_density[j],2)))
    plt.show()
 
+# WRITTEN ANSWER QUESTION 2:
 # My result for the Chandrasekhar limit was estimated from the plots to be
 # 2.86e33. This is roughly 2 times as large compared to the result obtained by
 # Kippenhahn & Weigert (1990) of 5.836/ue^2 ~= 1.459. This is likely due to
