@@ -140,4 +140,14 @@ for k in range(np.size(initial_densities3)):
 
 # Note - Measurements are in units of the Sun's mass and radius
 
-csv_out = pd.read_csv(r'C:\Users\natha\Desktop\UWO\2024-2025\1st Semester\Physics 3926 - Computer simulations\Python\wd_mass_radius.csv',skiprows=1)
+csv_out = pd.read_csv(r'C:\Users\natha\Desktop\UWO\2024-2025\1st Semester\Physics 3926 - Computer simulations\Python\wd_mass_radius.csv')
+csv_data = np.array(csv_out) # isolating only the needed data into easily manipulable np array
+
+# array data parsing
+Msun = csv_data[:,0]
+Msun_unc = csv_data[:,1]
+Rsun = csv_data[:,2]
+Rsun_unc = csv_data[:,3]
+print(csv_data)
+print(Msun)
+print(Msun_unc)
