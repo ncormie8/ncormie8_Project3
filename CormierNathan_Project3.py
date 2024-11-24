@@ -191,4 +191,9 @@ for l in range(np.size(test_densities)):
    plt.show()
 
 # WRITTEN ANSWER TO QUESTION 4:
-# 
+# After experimenting with varying values for initial central density, I found that the a range
+# from 0.5 to 5 with evenly spaced intervals of 0.5 yielded results for final mass and radius
+# similar to those observed by Tremblay et al. 2017. However, when using the values for initial
+# central density from question 1, only the first initial central density of 0.1 came close to
+# the Tremblay et al. 2017 observation values with all others having much higher masses and
+# significantly lower radii.
