@@ -156,8 +156,7 @@ Msun_unc_wd = csv_data[:,1]
 Rsun_wd = csv_data[:,2]
 Rsun_unc_wd = csv_data[:,3]
 
-# converting array data to be of same units as graphs from Q2
-
+# testing our mass-radius relation for the following initial central densities
 test_densities=[1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 
 for l in range(np.size(test_densities)):
@@ -180,7 +179,7 @@ for l in range(np.size(test_densities)):
 
       # plotting each radius mass pair with mass and radius error bars
       plt.plot(x_mass,y_radius,'--')
-      plt.errorbar(x_mass,y_radius,xerr=x_unc,yerr=y_unc)
+      plt.errorbar(x_mass,y_radius,xerr=x_unc,yerr=y_unc,ecolor='b',elinewidth=0.5)
    
    # plot formatting
    # plotting mass on x, radius on y
