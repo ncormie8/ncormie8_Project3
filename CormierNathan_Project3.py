@@ -2,7 +2,7 @@ import numpy as np
 from scipy import integrate
 import matplotlib.pyplot as plt
 import pandas as pd
-import time                #used for time.sleep() to debug outputs from poor logic
+import time                #used for time.sleep() to debug outputs from poor/problematic code
 
 
 # Question 1
@@ -84,7 +84,7 @@ for j in range(np.size(initial_density)):
    plotting_radius = np.multiply(R0,soln2.t[:])
 
    # plotting mass on x, radius on y
-   plt.plot(plotting_mass,plotting_radius,'-')
+   plt.plot(plotting_mass,plotting_radius,'-',color='k')
    plt.xlabel('Mass [g]')
    plt.ylabel('Stellar radius [cm]')
    plt.title('White dwarf radius in terms of mass for initial density ~'+str(np.round(initial_density[j],2)))
@@ -184,7 +184,7 @@ for l in range(np.size(test_densities)):
    
    # plot formatting
    # plotting mass on x, radius on y
-   plt.plot(plotting_mass4,plotting_radius4,'-')
+   plt.plot(plotting_mass4,plotting_radius4,'-',color='k')
    plt.xlabel('Mass [g]')
    plt.ylabel('Stellar radius [cm]')
    plt.title('White dwarf radius in terms of mass for initial density ~'+str(np.round(f0[1],2)))
