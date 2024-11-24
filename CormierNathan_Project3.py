@@ -140,32 +140,26 @@ for k in range(np.size(initial_densities3)):
 
 # Note - Measurements are in units of the Sun's mass and radius
 
+# constants
+sun_mass = 1.989e33      #[g]
+sun_radius = 69.634e9    # [cm]
+
 # reading the csv file from its raw string path and assigning it to csv_out
 csv_out = pd.read_csv(r'C:\Users\natha\Desktop\UWO\2024-2025\1st Semester\Physics 3926 - Computer simulations\Python\wd_mass_radius.csv')
 
 # isolating only the needed data into easily manipulable np array
 csv_data = np.array(csv_out) 
 
-# array data slicing for plotting
-Msun_wd = csv_data[:,0]
-Msun_unc_wd = csv_data[:,1]
-Rsun_wd = csv_data[:,2]
-Rsun_unc_wd = csv_data[:,3]
+# array data slicing for plotting with unit conversion included
+Msun_wd = np.multiply(sun_mass,csv_data[:,0])
+Msun_unc_wd = np.multiply(sun_mass,csv_data[:,1])
+Rsun_wd = np.multiply(sun_radius,csv_data[:,2])
+Rsun_unc_wd = np.multiply(sun_radius,csv_data[:,3])
 
-# constants
-sun_mass = 1.989e33      #[g]
-sun_radius = 69.634e9    # [cm]
-
-# converting array data to be of same units as graphs from Q3
-Msun_ToScale = np.multiply(sun_mass,Msun)
-MsunError_ToScale = np.multiply(sun_mass,Msun_unc)
-Rsun_ToScale = np.multiply(sun_radius,Rsun)
-RsunError_ToScale = np.multiply(sun_radius,Rsun_unc)
+# converting array data to be of same units as grap]hs from Q3
 
 for l in range(np.size(initial_density)):
    
-   plt.plot(Msun_ToScale,Rsun_ToScale,'--')
-   plt.errorbar(x=Msun_ToScale,y=Rsun_ToScale,xerr=MsunError_ToScale,yerr=RsunError_ToScale)
    # setting the initial condition for the current loop iteration
    f0 = [0., initial_density[l]]
    soln2 = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
@@ -176,6 +170,20 @@ for l in range(np.size(initial_density)):
 
    # plotting mass on x, radius on y
    plt.plot(plotting_mass,plotting_radius,'-')
+   
+   # loop for plotting all wd values with bidirectional error bars
+   for m in range(np.size(Msun_wd)):
+      # plotting each radius-mass pair 
+      x_mass = Msun_wd[m]
+      x_unc = Msun_unc_wd[m]
+      y_radius = Rsun_wd[m]
+      y_unc = Rsun_unc_wd[m]
+
+      # plotting each radius mass pair with mass and radius error bars
+      plt.plot(x_mass,y_radius)
+      plt.errorbar(x_mass,y_radius,xerr=x_unc,yerr=y_unc)
+   
+   # plot formatting
    plt.xlabel('Mass [g]')
    plt.ylabel('Stellar radius [cm]')
    plt.title('White dwarf radius in terms of mass for initial density ~'+str(np.round(initial_density[j],2)))
