@@ -93,7 +93,7 @@ for j in range(np.size(initial_density)):
 
 # WRITTEN ANSWER QUESTION 2:
 # My result for the Chandrasekhar limit was estimated from the plots to be
-# 2.86e33. This is roughly 2 times as large compared to the result obtained by
+# ~2.017 (2.86e33 [g] / M0 [g]). This is roughly 38% larger than the result obtained by
 # Kippenhahn & Weigert (1990) of 5.836/ue^2 ~= 1.459. This is likely due to
 # the use of inappropriate starting values for the central density of white dwarves
 # used in the integration solution.
