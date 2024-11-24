@@ -1,7 +1,9 @@
 import numpy as np
 from scipy import integrate
 import matplotlib.pyplot as plt
-import time
+import pandas as pd
+import time                #used for time.sleep() to debug outputs from poor logic
+
 
 # Question 1
 # solve eqs 8 and 9
@@ -137,3 +139,6 @@ for k in range(np.size(initial_densities3)):
 # Your plot must include Plot these observed data with their error bars on your computed mass-radius relation, paying attention to the units. How well do the observations agree with your calculations?
 
 # Note - Measurements are in units of the Sun's mass and radius
+
+csv_out = pd.read_csv(r'C:\Users\natha\Desktop\UWO\2024-2025\1st Semester\Physics 3926 - Computer simulations\Python\wd_mass_radius.csv')
+print(csv_out)
