@@ -76,7 +76,7 @@ for j in range(np.size(initial_density)):
    
    # setting the initial condition for the current loop iteration
    f0 = [0., initial_density[j]]
-   soln2 = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
+   soln2 = integrate.solve_ivp(odes,[initial_radius,10],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
    
    # extracting the values of mass and radius, and giving them units
    plotting_mass = np.multiply(M0,soln2.y[0,:])
@@ -156,20 +156,17 @@ Msun_unc_wd = np.multiply(sun_mass,csv_data[:,1])
 Rsun_wd = np.multiply(sun_radius,csv_data[:,2])
 Rsun_unc_wd = np.multiply(sun_radius,csv_data[:,3])
 
-# converting array data to be of same units as grap]hs from Q3
+# converting array data to be of same units as graphs from Q2
 
 for l in range(np.size(initial_density)):
    
    # setting the initial condition for the current loop iteration
    f0 = [0., initial_density[l]]
-   soln2 = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
+   soln2 = integrate.solve_ivp(odes,[initial_radius,10],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
    
    # extracting the values of mass and radius, and giving them units
    plotting_mass = np.multiply(M0,soln2.y[0,:])
    plotting_radius = np.multiply(R0,soln2.t[:])
-
-   # plotting mass on x, radius on y
-   plt.plot(plotting_mass,plotting_radius,'-')
    
    # loop for plotting all wd values with bidirectional error bars
    for m in range(np.size(Msun_wd)):
@@ -180,11 +177,13 @@ for l in range(np.size(initial_density)):
       y_unc = Rsun_unc_wd[m]
 
       # plotting each radius mass pair with mass and radius error bars
-      plt.plot(x_mass,y_radius)
+      plt.plot(x_mass,y_radius,'<')
       plt.errorbar(x_mass,y_radius,xerr=x_unc,yerr=y_unc)
    
    # plot formatting
+   # plotting mass on x, radius on y
+   plt.plot(plotting_mass,plotting_radius,'-')
    plt.xlabel('Mass [g]')
    plt.ylabel('Stellar radius [cm]')
-   plt.title('White dwarf radius in terms of mass for initial density ~'+str(np.round(initial_density[j],2)))
+   plt.title('White dwarf radius in terms of mass for initial density ~'+str(np.round(initial_density[l],2)))
    plt.show()
