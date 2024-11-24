@@ -124,9 +124,16 @@ for k in range(np.size(initial_densities3)):
    print('RK45 output radius = '+str(solved_radii[k])+' | RK23 output radius = '+str(solved_radii3[k]))
    print('RK45 output mass = '+str(solved_masses[k])+' | RK23 output mass = '+str(solved_masses3[k])+'\nALL QUANTITES ARE UNITLESS\n')
 
-# Written answer to question 3:
+# WRITTEN ANSWER TO QUESTION 3:
 # The results from the method used in question 1 (RK45) when compared to those obtained using
 # the method in question 3 (RK23) are very similar to one another. This is not much of a surprise
 # as they are both explicit Runge-Kutta methods of iterative numerical analysis. While the solutions
 # are practically identical, the RK23 method differs slightly from RK45 for the masses moreso than
 # for the radii.
+
+# Question 4
+
+# Plot the observed data obtained by Tremblay et al. (2017) from the given file wd_mass_radius.csv.
+# Your plot must include Plot these observed data with their error bars on your computed mass-radius relation, paying attention to the units. How well do the observations agree with your calculations?
+
+# Note - Measurements are in units of the Sun's mass and radius
