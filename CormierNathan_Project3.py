@@ -45,7 +45,7 @@ solved_masses = np.zeros(np.size(initial_density))
 solved_radii = np.zeros(np.size(initial_density))
 
 # setting evaluation time for integration
-t_eval = np.linspace(initial_radius,100,10000000)
+t_eval = np.linspace(initial_radius,10,10000000)
 
 for i in range(np.size(initial_density)):
    
@@ -53,7 +53,7 @@ for i in range(np.size(initial_density)):
    f0 = [0., initial_density[i]]
    
    # solving eqns 8 and 9 for the given initial condition
-   soln = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
+   soln = integrate.solve_ivp(odes,[initial_radius,10],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
    
    # saving the dimensionless values of mass and radius to arrays
    solved_radii[i] = soln.t[-1]
@@ -71,7 +71,7 @@ M0 = 5.67e33/(ue**2)  # [g]
 R0 = 7.72e8/(ue)    # [cm]
 p0 = 9.74e5*(ue)  # [g/cm^3]
 
-# similar loop as in question 2
+# similar loop as in question 2 but now for plotting
 for j in range(np.size(initial_density)):
    
    # setting the initial condition for the current loop iteration
@@ -140,14 +140,43 @@ for k in range(np.size(initial_densities3)):
 
 # Note - Measurements are in units of the Sun's mass and radius
 
+# reading the csv file from its raw string path and assigning it to csv_out
 csv_out = pd.read_csv(r'C:\Users\natha\Desktop\UWO\2024-2025\1st Semester\Physics 3926 - Computer simulations\Python\wd_mass_radius.csv')
-csv_data = np.array(csv_out) # isolating only the needed data into easily manipulable np array
 
-# array data parsing
-Msun = csv_data[:,0]
-Msun_unc = csv_data[:,1]
-Rsun = csv_data[:,2]
-Rsun_unc = csv_data[:,3]
-print(csv_data)
-print(Msun)
-print(Msun_unc)
+# isolating only the needed data into easily manipulable np array
+csv_data = np.array(csv_out) 
+
+# array data slicing for plotting
+Msun_wd = csv_data[:,0]
+Msun_unc_wd = csv_data[:,1]
+Rsun_wd = csv_data[:,2]
+Rsun_unc_wd = csv_data[:,3]
+
+# constants
+sun_mass = 1.989e33      #[g]
+sun_radius = 69.634e9    # [cm]
+
+# converting array data to be of same units as graphs from Q3
+Msun_ToScale = np.multiply(sun_mass,Msun)
+MsunError_ToScale = np.multiply(sun_mass,Msun_unc)
+Rsun_ToScale = np.multiply(sun_radius,Rsun)
+RsunError_ToScale = np.multiply(sun_radius,Rsun_unc)
+
+for l in range(np.size(initial_density)):
+   
+   plt.plot(Msun_ToScale,Rsun_ToScale,'--')
+   plt.errorbar(x=Msun_ToScale,y=Rsun_ToScale,xerr=MsunError_ToScale,yerr=RsunError_ToScale)
+   # setting the initial condition for the current loop iteration
+   f0 = [0., initial_density[l]]
+   soln2 = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
+   
+   # extracting the values of mass and radius, and giving them units
+   plotting_mass = np.multiply(M0,soln2.y[0,:])
+   plotting_radius = np.multiply(R0,soln2.t[:])
+
+   # plotting mass on x, radius on y
+   plt.plot(plotting_mass,plotting_radius,'-')
+   plt.xlabel('Mass [g]')
+   plt.ylabel('Stellar radius [cm]')
+   plt.title('White dwarf radius in terms of mass for initial density ~'+str(np.round(initial_density[j],2)))
+   plt.show()
