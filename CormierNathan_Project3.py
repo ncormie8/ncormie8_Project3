@@ -20,6 +20,9 @@ initial_radius = 1e-10
 
 # beta function definiton
 def odes(r, f):
+   '''This function is used to describe the differential mass and density equations 
+   of a white dwarf star, and returns the equations to be solved by solve_ivp.'''
+   
    mass = f[0]   # setting mass and density as functions odes() in terms of input f
    density = f[1]
 
@@ -37,6 +40,8 @@ def odes(r, f):
 
 # setting event condition to stop integration when density is zero
 def zerodensity(r, f):
+   '''Function used with solve_ivp to stop integration when the density crosses
+   zero, going from a positive to a negative value.'''
    return  f[1] 
 
 zerodensity.terminal = True
