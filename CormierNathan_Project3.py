@@ -74,11 +74,11 @@ for j in range(np.size(initial_density)):
    
    # setting the initial condition for the current loop iteration
    f0 = [0., initial_density[j]]
-   soln = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
+   soln2 = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10)
    
    # extracting the values of mass and radius, and giving them units
-   plotting_mass = np.multiply(M0,soln.y[0,:])
-   plotting_radius = np.multiply(R0,soln.t[:])
+   plotting_mass = np.multiply(M0,soln2.y[0,:])
+   plotting_radius = np.multiply(R0,soln2.t[:])
 
    # plotting mass on x, radius on y
    # plt.plot(plotting_mass,plotting_radius,'-')
@@ -113,13 +113,20 @@ for k in range(np.size(initial_densities3)):
    f0 = [0., initial_densities3[k]]
    
    # solving eqns 8 and 9 for the given initial condition, now using BDF as the integration method
-   soln = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10, method='RK23')
+   soln3 = integrate.solve_ivp(odes,[initial_radius,100],f0,t_eval=t_eval,events=zerodensity,rtol=1e-8,atol=1e-10, method='RK23')
    
    # saving the dimensionless values of mass and radius to arrays
-   solved_radii3[k] = soln.t[-1]
-   solved_masses3[k] = soln.y[0,-1]
+   solved_radii3[k] = soln3.t[-1]
+   solved_masses3[k] = soln3.y[0,-1]
 
    # comparison to be printed to the terminal
+   print('Initial Central Density = '+str(initial_densities3[k]))
    print('RK45 output radius = '+str(solved_radii[k])+' | RK23 output radius = '+str(solved_radii3[k]))
-   print('RK45 output mass = '+str(solved_masses[k])+' | RK23 output mass = '+str(solved_masses3[k])+'\n')
+   print('RK45 output mass = '+str(solved_masses[k])+' | RK23 output mass = '+str(solved_masses3[k])+'\nALL QUANTITES ARE UNITLESS\n')
 
+# Written answer to question 3:
+# The results from the method used in question 1 (RK45) when compared to those obtained using
+# the method in question 3 (RK23) are very similar to one another. This is not much of a surprise
+# as they are both explicit Runge-Kutta methods of iterative numerical analysis. While the solutions
+# are practically identical, the RK23 method differs slightly from RK45 for the masses moreso than
+# for the radii.
