@@ -1,8 +1,8 @@
 import numpy as np
 from scipy import integrate
 import matplotlib.pyplot as plt
-import pandas as pd
-import time                #used for time.sleep() to debug outputs from poor/problematic code
+import pandas as pd        # used for reading the given csv file
+import time                # used for time.sleep() to debug outputs from poor/problematic code
 
 
 # Question 1
@@ -29,8 +29,9 @@ def odes(r, f):
       gamma = (x**2)/(3*(1+x**2)**(1/2))   # defining gamma in terms of x
 
       # definining differential equations  
-      drho_dr = -(mass)*(density)/(gamma*(r**2))
       dm_dr = (r**2)*(density)
+      drho_dr = -(mass)*(density)/(gamma*(r**2))
+      
    
       return [dm_dr,drho_dr]
 
@@ -123,7 +124,7 @@ for k in range(np.size(initial_densities3)):
    solved_masses3[k] = soln3.y[0,-1]
 
    # comparison to be printed to the terminal
-   print('Initial Central Density = '+str(initial_densities3[k]))
+   print('Initial Central Density = '+str(f0[1]))
    print('RK45 output radius = '+str(solved_radii[k])+' | RK23 output radius = '+str(solved_radii3[k]))
    print('RK45 output mass = '+str(solved_masses[k])+' | RK23 output mass = '+str(solved_masses3[k])+'\nALL QUANTITES ARE UNITLESS\n')
 
@@ -185,9 +186,9 @@ for l in range(np.size(test_densities)):
    # plot formatting
    # plotting mass on x, radius on y
    plt.plot(plotting_mass4,plotting_radius4,'-',color='k')
-   plt.xlabel('Mass [g]')
-   plt.ylabel('Stellar radius [cm]')
-   plt.title('White dwarf radius in terms of mass for initial density ~'+str(np.round(f0[1],2)))
+   plt.xlabel('Solar masses')
+   plt.ylabel('Solar radii')
+   plt.title('White dwarf solar radii in terms of solar mass for initial density ~'+str(np.round(f0[1],2)))
    plt.show()
 
 # WRITTEN ANSWER TO QUESTION 4:
